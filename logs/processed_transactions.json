@@ -1,0 +1,10 @@
+{
+    "transactions": [
+        {
+            "address": "0x6C2a675C8e6A791EC901603263D485278E1Bef3f",
+            "last_tx_hash": "e76495e187e52124ca9aba3addab104b7946bc58a7f3319b90a7b6d332e2eb69",
+            "last_tx_block": 7225296
+        }
+    ],
+    "last_processed_block": 7225302
+}
