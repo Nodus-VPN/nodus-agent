@@ -6,7 +6,7 @@ from internal import model
 class ITxService(Protocol):
     # INSERT
     @abstractmethod
-    async def set_last_processed_block(self, last_processed_block: int) -> int: pass
+    async def set_last_processed_block(self) -> int: pass
 
     @abstractmethod
     async def set_tx(self, client_address: str, tx_hash: str, tx_block: int): pass
@@ -49,7 +49,7 @@ class ITxRepository(Protocol):
 
 class IContractNDS(Protocol):
     @abstractmethod
-    def txs(
+    async def txs(
             self,
             last_processed_block: int,
             current_block: int,
@@ -57,12 +57,12 @@ class IContractNDS(Protocol):
     ) -> list: pass
 
     @abstractmethod
-    def current_block(self) -> int: pass
+    async def current_block(self) -> int: pass
 
 
 class IContractVPN(Protocol):
     @abstractmethod
-    def update_client_balance(self, client_address: str, amount: int, tx_block: int): pass
+    async def update_client_balance(self, client_address: str, amount: int, tx_block: int): pass
 
 
 class DBInterface(Protocol):

@@ -8,7 +8,7 @@ async def NewTxAgent(
         tx_service: model.ITxService,
         vpn_contract_address: str,
 ):
-    last_processed_block = await tx_service.set_last_processed_block(nds_contract.current_block())
+    last_processed_block = await tx_service.set_last_processed_block()
 
     while True:
         current_block = nds_contract.current_block()

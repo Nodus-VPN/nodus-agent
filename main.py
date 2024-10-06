@@ -1,4 +1,4 @@
-import uvicorn
+import asyncio
 from infrasctructure.pg.pg import PG
 
 from pkg.contracts import ContractVPN, ContractNDS
@@ -25,12 +25,22 @@ vpn_contract = ContractVPN(
     contract_address=cfg.vpn_contract_address
 )
 
+nds_contract = ContractNDS(
+    contract_abi=cfg.vpn_contract_abi,
+    contract_address=cfg.vpn_contract_address
+)
+
 db = PG(cfg.db_user, cfg.db_pass, cfg.db_host, cfg.db_port, cfg.db_name)
 
 tx_repo = TxRepository(db)
-tx_service = TxService(tx_repo, vpn_contract)
+tx_service = TxService(tx_repo, vpn_contract, nds_contract)
 
 if __name__ == '__main__':
     args = parser.parse_args()
+
+    if args.app == "tx_agent":
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(NewTxAgent())
+
 
 
