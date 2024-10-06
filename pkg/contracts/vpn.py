@@ -31,24 +31,6 @@ class ContractVPN(model.IContractVPN):
         tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
         return tx_receipt
 
-    def cost_for_set_node_ip(self, node_ip: str) -> int:
-        function = self.contract.functions.setNodeIP(node_ip)
-        gas_estimate = function.estimate_gas({'from': self.owner_address})
-        gas_price = self.w3.eth.gas_price
-        transaction_cost = gas_estimate * gas_price
-        return transaction_cost
-
-    def owner_balance(self) -> int:
-        return self.w3.eth.get_balance(Web3.to_checksum_address(self.owner_address))
-
-    def all_node(self) -> list[str]:
-        return self.contract.functions.getAllNode().call()
-
-    def set_node_ip(self, node_ip: str):
-        function = self.contract.functions.setNodeIP(node_ip)
+    def update_client_balance(self, client_address: str, amount: int, tx_block: int):
+        function = self.contract.functions.topUpBalance(client_address, amount, tx_block)
         tx_receipt = self._send_transaction(function)
-        return tx_receipt
-
-    def client_balance(self, client_address: str):
-        client_address = Web3.to_checksum_address(client_address)
-        return self.contract.functions.getClientBalance(client_address).call()

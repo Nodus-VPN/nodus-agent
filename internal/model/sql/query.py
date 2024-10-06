@@ -4,6 +4,16 @@ VALUES (:last_processed_block)
 RETURNING id;
 """
 
+set_tx_query = """
+INSERT INTO txs (client_address, tx_hash, tx_block)
+VALUES (:client_address, :tx_hash, :tx_block)
+RETURNING id;
+"""
+
+get_all_tx_query = """
+SELECT * FROM txs;
+"""
+
 get_last_processed_block_query = """
 SELECT * FROM last_processed_block;
 WHERE id = 1;

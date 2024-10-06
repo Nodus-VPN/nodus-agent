@@ -13,7 +13,7 @@ class ContractNDS(model.IContractNDS):
         self.checksum_address = Web3.to_checksum_address(contract_address)
         self.contract = self.w3.eth.contract(self.checksum_address, abi=contract_abi)
 
-    def tx_logs(
+    def txs(
             self,
             last_processed_block: int,
             current_block: int,

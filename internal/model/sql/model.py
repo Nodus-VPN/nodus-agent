@@ -2,7 +2,7 @@ create_txs_table_query = """
 CREATE TABLE IF NOT EXISTS txs (
 id SERIAL PRIMARY KEY,
 
-address TEXT NOT NULL,
+client_address TEXT NOT NULL,
 last_tx_hash TEXT NOT NULL,
 last_tx_block INTEGER NOT NULL,
 

@@ -1,19 +1,36 @@
 from abc import abstractmethod
 from typing import Protocol, Any, Sequence
+from internal import model
 
 
-class ITxAgentService(Protocol):
+class ITxService(Protocol):
+    # INSERT
     @abstractmethod
     async def set_last_processed_block(self, last_processed_block: int) -> int: pass
 
     @abstractmethod
+    async def set_tx(self, client_address: str, tx_hash: str, tx_block: int): pass
+
+    # UPDATE
+    @abstractmethod
     async def update_last_processed_block(self, last_processed_block: int) -> None: pass
 
     @abstractmethod
+    async def update_client_balance(self, client_address: str, amount: int, tx_block: int) -> None: pass
+
+    # SELECT
+    @abstractmethod
     async def last_processed_block(self) -> int: pass
 
+    # OTHER
+    @abstractmethod
+    async def is_tx_processed(self, client_address: str, tx_hash: str, tx_block: int) -> bool: pass
 
-class ITxAgentRepository(Protocol):
+    @abstractmethod
+    async def parse_tx(self, tx: dict) -> tuple[str, str, int, int]: pass
+
+
+class ITxRepository(Protocol):
     @abstractmethod
     async def set_last_processed_block(self, last_processed_block: int) -> None: pass
 
@@ -23,10 +40,16 @@ class ITxAgentRepository(Protocol):
     @abstractmethod
     async def last_processed_block(self) -> int: pass
 
+    @abstractmethod
+    async def set_tx(self, client_address: str, tx_hash: str, tx_block: int): pass
+
+    @abstractmethod
+    async def all_tx(self) -> list[model.Tx]: pass
+
 
 class IContractNDS(Protocol):
     @abstractmethod
-    def tx_logs(
+    def txs(
             self,
             last_processed_block: int,
             current_block: int,
@@ -35,6 +58,11 @@ class IContractNDS(Protocol):
 
     @abstractmethod
     def current_block(self) -> int: pass
+
+
+class IContractVPN(Protocol):
+    @abstractmethod
+    def update_client_balance(self, client_address: str, amount: int, tx_block: int): pass
 
 
 class DBInterface(Protocol):
