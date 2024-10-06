@@ -1,13 +1,9 @@
 # Instruction
 
 ### Edit:
-
-.env.example
+internal/config/config.py
 
 ### Run:
-
-docker build -t nodus-backend-app .
-
-docker run -it --env-file .env nodus-backend-app
+docker compose -f docker/docker-compose.yml up --build
 
 

@@ -33,7 +33,10 @@ class TxService(model.ITxService):
         return await self.tx_repo.last_processed_block()
 
     async def nds_txs(self, last_processed_block: int, current_block: int, vpn_contract_address: str) -> list:
-        return self.nds_contract.txs(last_processed_block, current_block, vpn_contract_address)
+        return await self.nds_contract.txs(last_processed_block, current_block, vpn_contract_address)
+
+    async def current_block(self) -> int:
+        return await self.nds_contract.current_block()
 
     # OTHER
     async def is_tx_processed(self, client_address: str, tx_hash: str, tx_block: int) -> bool:

@@ -15,7 +15,7 @@ SELECT * FROM txs;
 """
 
 get_last_processed_block_query = """
-SELECT * FROM last_processed_block;
+SELECT * FROM last_processed_block
 WHERE id = 1;
 """
 

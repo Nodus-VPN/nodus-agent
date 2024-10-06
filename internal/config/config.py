@@ -14,104 +14,60 @@ class Config:
     db_port = 5432
     db_name = "postgres"
 
-    owner_address = os.getenv("OWNER_ADDRESS")
-    owner_private_key = os.getenv("OWNER_PRIVATE_KEY")
+    owner_address = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
+    owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
-    vpn_contract_address: str = "0xAf381aEF7BF4c600821989aD0777Fbb589dFA013"
+    vpn_contract_address: str = "0xEF1a8161BA0f7A1229754146647285CBb0aC1901"
     vpn_contract_abi: str = """[
         {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "_nds_address",
-                    "type": "address"
-                }
-            ],
+            "inputs": [],
             "stateMutability": "nonpayable",
             "type": "constructor"
         },
         {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "owner",
-                    "type": "address"
-                }
-            ],
-            "name": "OwnableInvalidOwner",
-            "type": "error"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "account",
-                    "type": "address"
-                }
-            ],
-            "name": "OwnableUnauthorizedAccount",
-            "type": "error"
-        },
-        {
             "anonymous": false,
             "inputs": [
                 {
                     "indexed": true,
                     "internalType": "address",
-                    "name": "previousOwner",
+                    "name": "user",
                     "type": "address"
                 },
                 {
-                    "indexed": true,
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "OwnershipTransferred",
-            "type": "event"
-        },
-        {
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "anonymous": false,
-            "inputs": [
-                {
                     "indexed": false,
                     "internalType": "uint256",
-                    "name": "node_id",
+                    "name": "amount",
                     "type": "uint256"
                 },
                 {
                     "indexed": false,
-                    "internalType": "string",
-                    "name": "node_ip",
-                    "type": "string"
-                },
-                {
-                    "indexed": false,
-                    "internalType": "address",
-                    "name": "node_owner",
-                    "type": "address"
+                    "internalType": "uint256",
+                    "name": "customBlockNumber",
+                    "type": "uint256"
                 }
             ],
-            "name": "SetNode",
+            "name": "BalanceToppedUp",
             "type": "event"
         },
         {
             "inputs": [
                 {
-                    "internalType": "string",
-                    "name": "_ip",
-                    "type": "string"
+                    "internalType": "address",
+                    "name": "_user",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_blockNumber",
+                    "type": "uint256"
                 }
             ],
-            "name": "setNodeIP",
+            "name": "topUpBalance",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -119,49 +75,34 @@ class Config:
         {
             "inputs": [
                 {
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
+                    "internalType": "uint256",
+                    "name": "amount",
+                    "type": "uint256"
                 }
             ],
-            "name": "transferOwnership",
+            "name": "withdraw",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
         },
         {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "allClinet",
+            "inputs": [],
+            "name": "getAllUserInfo",
             "outputs": [
                 {
-                    "internalType": "address",
+                    "internalType": "address[]",
                     "name": "",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
+                    "type": "address[]"
+                },
                 {
-                    "internalType": "uint256",
+                    "internalType": "uint256[]",
                     "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "availableNodes",
-            "outputs": [
+                    "type": "uint256[]"
+                },
                 {
-                    "internalType": "string",
+                    "internalType": "uint256[]",
                     "name": "",
-                    "type": "string"
+                    "type": "uint256[]"
                 }
             ],
             "stateMutability": "view",
@@ -169,63 +110,12 @@ class Config:
         },
         {
             "inputs": [],
-            "name": "getAllNode",
-            "outputs": [
-                {
-                    "internalType": "string[]",
-                    "name": "",
-                    "type": "string[]"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "_client",
-                    "type": "address"
-                }
-            ],
-            "name": "getClientBalance",
+            "name": "getContractBalance",
             "outputs": [
                 {
                     "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "NDS",
-            "outputs": [
-                {
-                    "internalType": "contract IERC20",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "nodeOwners",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
                 }
             ],
             "stateMutability": "view",
@@ -243,10 +133,39 @@ class Config:
             ],
             "stateMutability": "view",
             "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "users",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "userAddress",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "balance",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "blockNumber",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
         }
     ]"""
 
-    nds_contract_address: str = "0xAf381aEF7BF4c600821989aD0777Fbb589dFA013"
+    nds_contract_address: str = "0x3FD88AD9479D56f2b09baf76bD60f0B51e389b08"
     nds_contract_abi = """[
         {
             "inputs": [
@@ -562,7 +481,3 @@ class Config:
             "type": "function"
         }
     ]"""
-
-    node_ip: str = os.getenv("NODE_IP")
-    http_port: int = 7000
-    price_per_day: int = 100

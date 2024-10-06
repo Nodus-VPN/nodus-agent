@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from typing import Protocol, Any, Sequence
-from internal import model
+from internal.model.model import *
 
 
 class ITxService(Protocol):
@@ -21,6 +21,12 @@ class ITxService(Protocol):
     # SELECT
     @abstractmethod
     async def last_processed_block(self) -> int: pass
+
+    @abstractmethod
+    async def current_block(self) -> int: pass
+
+    @abstractmethod
+    async def nds_txs(self, last_processed_block: int, current_block: int, vpn_contract_address: str) -> list: pass
 
     # OTHER
     @abstractmethod
@@ -44,7 +50,7 @@ class ITxRepository(Protocol):
     async def set_tx(self, client_address: str, tx_hash: str, tx_block: int): pass
 
     @abstractmethod
-    async def all_tx(self) -> list[model.Tx]: pass
+    async def all_tx(self) -> list[Tx]: pass
 
 
 class IContractNDS(Protocol):

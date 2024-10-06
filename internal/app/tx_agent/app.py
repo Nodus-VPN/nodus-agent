@@ -4,16 +4,20 @@ from internal import model
 
 
 async def NewTxAgent(
-        nds_contract: model.IContractNDS,
         tx_service: model.ITxService,
         vpn_contract_address: str,
+        db: model.DBInterface
 ):
+    await db.multi_query(model.drop_queries)
+    await db.multi_query(model.create_queries)
     last_processed_block = await tx_service.set_last_processed_block()
 
     while True:
-        current_block = nds_contract.current_block()
+        current_block = await tx_service.current_block()
+        print("Текущий блок: ", current_block, flush=True)
         last_processed_block = await tx_service.last_processed_block()
-        txs = nds_contract.txs(last_processed_block, current_block, vpn_contract_address)
+        print("Текущий блок: ", current_block, flush=True)
+        txs = await tx_service.nds_txs(last_processed_block, current_block, vpn_contract_address)
         await tx_service.update_last_processed_block(current_block)
 
         for tx in txs:
