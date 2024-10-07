@@ -24,11 +24,11 @@ class ContractVPN(model.IContractVPN):
             'from': self.owner_address,
             'gas': gas_estimate,
             'gasPrice': gas_price,
-            'nonce': self.w3.eth.get_transaction_count(AsyncWeb3.to_checksum_address(self.owner_address))
+            'nonce': await self.w3.eth.get_transaction_count(AsyncWeb3.to_checksum_address(self.owner_address))
         })
         signed_tx = self.w3.eth.account.sign_transaction(transaction, self.owner_private_key)
         tx_hash = await self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
-        tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+        tx_receipt = await self.w3.eth.wait_for_transaction_receipt(tx_hash)
         return tx_receipt
 
     async def update_client_balance(self, client_address: str, amount: int, tx_block: int):

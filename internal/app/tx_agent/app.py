@@ -14,11 +14,12 @@ async def NewTxAgent(
 
     while True:
         current_block = await tx_service.current_block()
-        print("Текущий блок: ", current_block, flush=True)
+        print("current_block = ", current_block, flush=True)
         last_processed_block = await tx_service.last_processed_block()
-        print("Текущий блок: ", current_block, flush=True)
+        print("last_processed_block = ", last_processed_block, flush=True)
         txs = await tx_service.nds_txs(last_processed_block, current_block, vpn_contract_address)
         await tx_service.update_last_processed_block(current_block)
+        print(txs, flush=True)
 
         for tx in txs:
             client_address, tx_hash, tx_block, amount = await tx_service.parse_tx(tx)
@@ -26,6 +27,8 @@ async def NewTxAgent(
             is_tx_processed = await tx_service.is_tx_processed(client_address, tx_hash, tx_block)
             if is_tx_processed:
                 continue
+
+            print("Обнаружена транзакция", flush=True)
 
             await tx_service.update_client_balance(client_address, amount, tx_block)
             await tx_service.set_tx(client_address, tx_hash, tx_block)

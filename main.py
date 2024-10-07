@@ -9,7 +9,6 @@ from internal.service.tx.tx import TxService
 from internal.repository.tx.tx import TxRepository
 
 from internal.config.config import Config as cfg
-from internal import model
 import argparse
 
 parser = argparse.ArgumentParser(description='For choice app')

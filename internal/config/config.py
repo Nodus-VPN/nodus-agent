@@ -17,7 +17,7 @@ class Config:
     owner_address = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
     owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
-    vpn_contract_address: str = "0xEF1a8161BA0f7A1229754146647285CBb0aC1901"
+    vpn_contract_address: str = "0x01cBEC863030b2d791923fA469c5EE79516FAa4c"
     vpn_contract_abi: str = """[
         {
             "inputs": [],
@@ -165,7 +165,7 @@ class Config:
         }
     ]"""
 
-    nds_contract_address: str = "0x3FD88AD9479D56f2b09baf76bD60f0B51e389b08"
+    nds_contract_address: str = "0x01EaeCD4F8699BE71e362c98786eF916cf86B12c"
     nds_contract_abi = """[
         {
             "inputs": [

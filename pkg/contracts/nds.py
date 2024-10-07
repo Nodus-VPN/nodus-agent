@@ -21,7 +21,7 @@ class ContractNDS(model.IContractNDS):
     ) -> list:
         logs = await self.contract.events.Transfer().get_logs(
             from_block=last_processed_block + 1,
-            to_block=current_block,
+            to_block=current_block + 1,
             argument_filters={'to': vpn_contract_address}
         )
         return logs
