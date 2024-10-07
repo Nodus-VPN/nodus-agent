@@ -1,0 +1,10 @@
+FROM python:3.10-alpine
+
+WORKDIR /root/nodus-agent
+COPY . .
+
+ENV PYTHONPATH=$PYTHONPATH:/root/nodus-agent
+
+
+RUN pip install -r requirements.txt
+CMD python3 main.py tx_agent
