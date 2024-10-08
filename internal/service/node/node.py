@@ -24,9 +24,6 @@ class NodeService(model.INodeService):
         except:
             return False
 
-    async def traffic(self, node_ip: str) -> int:
-        return await self.node_client.traffic(node_ip)
-
     async def update_node_metrics(
             self,
             nodes_ip: list[str],

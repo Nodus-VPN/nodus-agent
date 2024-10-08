@@ -16,7 +16,3 @@ class NodeClient(model.INodeClient):
 
     async def health_check(self, node_ip: str):
         return await self.__async_get("/health_check", node_ip)
-
-    async def get_node_traffic(self, node_ip: str) -> int:
-        response = await self.__async_get("/traffic", node_ip)
-        return response["traffic"]

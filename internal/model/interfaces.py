@@ -1,6 +1,5 @@
 from abc import abstractmethod
 from typing import Protocol, Any, Sequence
-from internal.model.model import *
 
 
 class INodeService(Protocol):
@@ -10,9 +9,6 @@ class INodeService(Protocol):
 
     @abstractmethod
     async def health_check(self, node_ip: str) -> int: pass
-
-    @abstractmethod
-    async def traffic(self, node_ip: str) -> int: pass
 
     @abstractmethod
     async def update_node_metrics(
@@ -58,6 +54,3 @@ class DBInterface(Protocol):
 class INodeClient(Protocol):
     @abstractmethod
     async def health_check(self, node_ip: str): pass
-
-    @abstractmethod
-    async def get_node_traffic(self, node_ip: str) -> int: pass

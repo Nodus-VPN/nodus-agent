@@ -42,7 +42,7 @@ class ContractVPN(model.IContractVPN):
             failed_response: list[int],
             traffic: list[int]
     ):
-        function = await self.contract.functions.setMetrics(
+        function = self.contract.functions.updateNodeMetrics(
             nodes_ip,
             ok_response,
             failed_response,

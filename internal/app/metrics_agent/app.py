@@ -9,7 +9,6 @@ async def NewMetricsAgent(
     while True:
         ok_responses = []
         failed_responses = []
-        traffics = []
 
         nodes_ip = await node_service.nodes_ip()
         for node_ip in nodes_ip:
@@ -23,14 +22,10 @@ async def NewMetricsAgent(
                 ok_responses.append(0)
                 failed_responses.append(1)
 
-            # TRAFFIC
-            traffic = await node_service.traffic(node_ip)
-            traffics.append(traffic)
 
         await node_service.update_node_metrics(
             nodes_ip,
             ok_responses,
             failed_responses,
-            traffics
         )
         time.sleep(20)

@@ -10,14 +10,14 @@ load_dotenv()
 class Config:
     db_user = "postgres"
     db_pass = "postgres"
-    db_host = "nodus_db"
+    db_host = "nodus-db"
     db_port = 5432
     db_name = "postgres"
 
     owner_address = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
     owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
-    vpn_contract_address: str = "0x03E498Bbb10C21016cd907A5610C08FFC882AEa3"
+    vpn_contract_address: str = "0x69bee0400f346a9a56cb3D87cBb99C4C38B96c32"
     vpn_contract_abi: str = """[
         {
             "inputs": [
@@ -72,6 +72,13 @@ class Config:
             "type": "event"
         },
         {
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "anonymous": false,
             "inputs": [
                 {
@@ -97,16 +104,72 @@ class Config:
             "type": "event"
         },
         {
-            "inputs": [],
-            "name": "NDS",
-            "outputs": [
+            "inputs": [
                 {
-                    "internalType": "contract IERC20",
-                    "name": "",
+                    "internalType": "string",
+                    "name": "_ip",
+                    "type": "string"
+                }
+            ],
+            "name": "setNodeIP",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "newOwner",
                     "type": "address"
                 }
             ],
-            "stateMutability": "view",
+            "name": "transferOwnership",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string[]",
+                    "name": "_nodeIP",
+                    "type": "string[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_okResponse",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_failedResponse",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_downloadSpeed",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_uploadSpeed",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_packageLoss",
+                    "type": "uint256[]"
+                },
+                {
+                    "internalType": "uint256[]",
+                    "name": "_ping",
+                    "type": "uint256[]"
+                }
+            ],
+            "name": "updateNodeMetrics",
+            "outputs": [],
+            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -232,23 +295,41 @@ class Config:
                         },
                         {
                             "internalType": "uint256",
-                            "name": "traffic",
+                            "name": "downloadSpeed",
                             "type": "uint256"
                         },
                         {
                             "internalType": "uint256",
-                            "name": "peopleHours",
+                            "name": "uploadSpeed",
                             "type": "uint256"
                         },
                         {
                             "internalType": "uint256",
-                            "name": "uniqueClients",
+                            "name": "packageLoss",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "ping",
                             "type": "uint256"
                         }
                     ],
                     "internalType": "struct NodusVPN.Node",
                     "name": "",
                     "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "NDS",
+            "outputs": [
+                {
+                    "internalType": "contract IERC20",
+                    "name": "",
+                    "type": "address"
                 }
             ],
             "stateMutability": "view",
@@ -276,17 +357,22 @@ class Config:
                 },
                 {
                     "internalType": "uint256",
-                    "name": "traffic",
+                    "name": "downloadSpeed",
                     "type": "uint256"
                 },
                 {
                     "internalType": "uint256",
-                    "name": "peopleHours",
+                    "name": "uploadSpeed",
                     "type": "uint256"
                 },
                 {
                     "internalType": "uint256",
-                    "name": "uniqueClients",
+                    "name": "packageLoss",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "ping",
                     "type": "uint256"
                 }
             ],
@@ -324,71 +410,10 @@ class Config:
             ],
             "stateMutability": "view",
             "type": "function"
-        },
-        {
-            "inputs": [],
-            "name": "renounceOwnership",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "string",
-                    "name": "_ip",
-                    "type": "string"
-                }
-            ],
-            "name": "setNodeIP",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "newOwner",
-                    "type": "address"
-                }
-            ],
-            "name": "transferOwnership",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "string[]",
-                    "name": "_nodeIP",
-                    "type": "string[]"
-                },
-                {
-                    "internalType": "uint256[]",
-                    "name": "_okResponse",
-                    "type": "uint256[]"
-                },
-                {
-                    "internalType": "uint256[]",
-                    "name": "_failedResponse",
-                    "type": "uint256[]"
-                },
-                {
-                    "internalType": "uint256[]",
-                    "name": "_traffic",
-                    "type": "uint256[]"
-                }
-            ],
-            "name": "updateNodeMetrics",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
         }
     ]"""
 
-    nds_contract_address: str = "0x2C36b521C016Ee337e9221F7d988Be32DB95d47B"
+    nds_contract_address: str = "0x7f08a790A97C4789f359903Ff7C71509403f3C56"
     nds_contract_abi = """[
         {
             "inputs": [
