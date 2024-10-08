@@ -481,3 +481,5 @@ class Config:
             "type": "function"
         }
     ]"""
+
+    node_metric_port = 7001

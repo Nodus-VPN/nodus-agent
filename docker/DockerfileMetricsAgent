@@ -7,4 +7,4 @@ ENV PYTHONPATH=$PYTHONPATH:/root/nodus-agent
 
 
 RUN pip install -r requirements.txt
-CMD python3 main.py tx_agent
+CMD python3 main.py metrics_agent
