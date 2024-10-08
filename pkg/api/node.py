@@ -15,4 +15,4 @@ class NodeClient(model.INodeClient):
                 return await resp.json()
 
     async def health_check(self, node_ip: str):
-        return await self.__async_get("/health_check", node_ip)
+        return await self.__async_get("/health", node_ip)

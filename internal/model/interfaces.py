@@ -11,12 +11,27 @@ class INodeService(Protocol):
     async def health_check(self, node_ip: str) -> int: pass
 
     @abstractmethod
+    def connect_to_vpn(self, config_path:  str): pass
+
+    @abstractmethod
+    def disconnect_from_vpn(self, config_path: str): pass
+
+    @abstractmethod
+    def check_speed(self) -> tuple[float, float]: pass
+
+    @abstractmethod
+    def check_ping(self, host) -> tuple[float, float]: pass
+
+    @abstractmethod
     async def update_node_metrics(
             self,
             nodes_ip: list[str],
             ok_responses: list[int],
             failed_responses: list[int],
-            traffics: list[int]
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
     ): pass
 
 
@@ -28,9 +43,12 @@ class IContractVPN(Protocol):
     async def update_node_metrics(
             self,
             nodes_ip: list[str],
-            ok_response: list[int],
-            failed_response: list[int],
-            traffic: list[int]
+            ok_responses: list[int],
+            failed_responses: list[int],
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
     ): pass
 
 

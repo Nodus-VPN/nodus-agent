@@ -38,14 +38,20 @@ class ContractVPN(model.IContractVPN):
     async def update_node_metrics(
             self,
             nodes_ip: list[str],
-            ok_response: list[int],
-            failed_response: list[int],
-            traffic: list[int]
+            ok_responses: list[int],
+            failed_responses: list[int],
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
     ):
         function = self.contract.functions.updateNodeMetrics(
             nodes_ip,
-            ok_response,
-            failed_response,
-            traffic
+            ok_responses,
+            failed_responses,
+            download_speeds,
+            upload_speeds,
+            package_losses,
+            pings,
         )
         tx_receipt = await self._send_transaction(function)
