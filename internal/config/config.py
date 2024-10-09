@@ -17,7 +17,7 @@ class Config:
     owner_address = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
     owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
-    vpn_contract_address: str = "0x69bee0400f346a9a56cb3D87cBb99C4C38B96c32"
+    vpn_contract_address: str = "0xDd00C157C8a512fb917482071436f3707A75Af87"
     vpn_contract_abi: str = """[
         {
             "inputs": [
@@ -107,11 +107,24 @@ class Config:
             "inputs": [
                 {
                     "internalType": "string",
-                    "name": "_ip",
+                    "name": "_nodeIP",
                     "type": "string"
                 }
             ],
             "name": "setNodeIP",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "subscriptionDuration",
+                    "type": "uint256"
+                }
+            ],
+            "name": "subscribe",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -194,25 +207,6 @@ class Config:
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                }
-            ],
-            "name": "clientList",
-            "outputs": [
-                {
-                    "internalType": "address",
-                    "name": "",
-                    "type": "address"
-                }
-            ],
-            "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "address",
                     "name": "",
                     "type": "address"
@@ -221,19 +215,22 @@ class Config:
             "name": "clients",
             "outputs": [
                 {
-                    "internalType": "address",
-                    "name": "clientAddress",
-                    "type": "address"
-                },
-                {
                     "internalType": "uint256",
                     "name": "subscriptionExpirationDate",
                     "type": "uint256"
-                },
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAllClient",
+            "outputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "availabeTraffic",
-                    "type": "uint256"
+                    "internalType": "address[]",
+                    "name": "",
+                    "type": "address[]"
                 }
             ],
             "stateMutability": "view",
@@ -260,6 +257,26 @@ class Config:
                     "type": "address"
                 }
             ],
+            "name": "getClient",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "subscriptionExpirationDate",
+                            "type": "uint256"
+                        }
+                    ],
+                    "internalType": "struct NodusVPN.Client",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
             "name": "getClientBalance",
             "outputs": [
                 {
@@ -382,9 +399,9 @@ class Config:
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
+                    "internalType": "string",
                     "name": "",
-                    "type": "uint256"
+                    "type": "string"
                 }
             ],
             "name": "nodeOwners",
@@ -410,10 +427,23 @@ class Config:
             ],
             "stateMutability": "view",
             "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "subscriptionMounthPrice",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
         }
     ]"""
 
-    nds_contract_address: str = "0x7f08a790A97C4789f359903Ff7C71509403f3C56"
+    nds_contract_address: str = "0x0212d88F067809505EE927E3320938a1806dCE94"
     nds_contract_abi = """[
         {
             "inputs": [
