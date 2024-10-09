@@ -31,6 +31,27 @@ class ContractVPN(model.IContractVPN):
         tx_receipt = await self.w3.eth.wait_for_transaction_receipt(tx_hash)
         return tx_receipt
 
-    async def update_client_balance(self, client_address: str, amount: int, tx_block: int):
-        function = self.contract.functions.topUpBalance(client_address, amount, tx_block)
+    async def nodes_ip(self) -> list[str]:
+        nodes_ip = await self.contract.functions.getAllNode().call()
+        return nodes_ip
+
+    async def update_node_metrics(
+            self,
+            nodes_ip: list[str],
+            ok_responses: list[int],
+            failed_responses: list[int],
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
+    ):
+        function = self.contract.functions.updateNodeMetrics(
+            nodes_ip,
+            ok_responses,
+            failed_responses,
+            download_speeds,
+            upload_speeds,
+            package_losses,
+            pings,
+        )
         tx_receipt = await self._send_transaction(function)
