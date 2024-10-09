@@ -1,5 +1,5 @@
 import time
-import urllib.request
+import requests
 
 from internal import model
 
@@ -19,9 +19,11 @@ async def NewMetricsAgent(
 
         nodes_ip = await node_service.nodes_ip()
         for node_ip in nodes_ip:
-            config_url = f"http://{node_ip}:7000/wg/client/config/admin"
+            config_url = f"http://{node_ip}:7000/wg/client/config/0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
 
-            urllib.request.urlretrieve(config_url, config_path)
+            response = requests.get(config_url, json={"client_secret_key": "admin"})
+            with open(config_path, "wb") as file:
+                file.write(response.content)
 
             # UPTIME
             health = await node_service.health_check(node_ip)
