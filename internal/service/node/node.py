@@ -78,3 +78,6 @@ class NodeService(model.INodeService):
             download_speeds,
             upload_speeds,
         )
+
+    async def delete_client_config(self, node_ip: str, client_address: str) -> None:
+        await self.node_client.delete_client_config(node_ip, client_address)

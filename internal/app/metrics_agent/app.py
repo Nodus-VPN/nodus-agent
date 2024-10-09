@@ -1,9 +1,5 @@
-import subprocess
 import time
-
-import speedtest
 import urllib.request
-from ping3 import ping
 
 from internal import model
 
@@ -20,7 +16,7 @@ async def NewMetricsAgent(
         pings = []
         download_speeds = []
         upload_speeds = []
-        print("Start")
+
         nodes_ip = await node_service.nodes_ip()
         for node_ip in nodes_ip:
             config_url = f"http://{node_ip}:7000/wg/client/config/admin"
@@ -57,5 +53,4 @@ async def NewMetricsAgent(
             download_speeds,
             upload_speeds,
         )
-        print("Обновили данные")
         time.sleep(20)

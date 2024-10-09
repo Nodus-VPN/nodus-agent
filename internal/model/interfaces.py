@@ -1,6 +1,8 @@
 from abc import abstractmethod
 from typing import Protocol, Any, Sequence
 
+from internal.model import model
+
 
 class INodeService(Protocol):
     # INSERT
@@ -11,7 +13,7 @@ class INodeService(Protocol):
     async def health_check(self, node_ip: str) -> int: pass
 
     @abstractmethod
-    def connect_to_vpn(self, config_path:  str): pass
+    def connect_to_vpn(self, config_path: str): pass
 
     @abstractmethod
     def disconnect_from_vpn(self, config_path: str): pass
@@ -34,6 +36,17 @@ class INodeService(Protocol):
             upload_speeds: list[int]
     ): pass
 
+    @abstractmethod
+    async def delete_client_config(self, node_ip: str, client_address: str): pass
+
+
+class IClientService(Protocol):
+    @abstractmethod
+    async def all_client_address(self) -> list[str]: pass
+
+    @abstractmethod
+    async def get_client(self, client_address: str) -> model.Client: pass
+
 
 class IContractVPN(Protocol):
     @abstractmethod
@@ -50,6 +63,12 @@ class IContractVPN(Protocol):
             download_speeds: list[int],
             upload_speeds: list[int]
     ): pass
+
+    @abstractmethod
+    async def all_client_address(self) -> list[str]: pass
+
+    @abstractmethod
+    async def get_client(self, client_address: str) -> model.Client: pass
 
 
 class DBInterface(Protocol):
@@ -72,3 +91,6 @@ class DBInterface(Protocol):
 class INodeClient(Protocol):
     @abstractmethod
     async def health_check(self, node_ip: str): pass
+
+    @abstractmethod
+    async def delete_client_config(self, node_ip: str, client_address: str): pass

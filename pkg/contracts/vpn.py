@@ -55,3 +55,12 @@ class ContractVPN(model.IContractVPN):
             pings,
         )
         tx_receipt = await self._send_transaction(function)
+
+    async def all_client_address(self) -> list[str]:
+        all_client_address = await self.contract.functions.getAllClientAddress().call()
+        return all_client_address
+
+    async def get_client(self, client_address: str) -> model.Client:
+        client = await self.contract.functions.getClient(client_address).call()
+        client = model.Client(*client)
+        return client
