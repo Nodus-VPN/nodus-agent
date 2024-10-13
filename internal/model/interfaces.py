@@ -5,18 +5,12 @@ from internal.model import model
 
 
 class INodeService(Protocol):
-    # INSERT
+    # GENERAL
     @abstractmethod
     async def nodes_ip(self) -> list[str]: pass
 
     @abstractmethod
     async def health_check(self, node_ip: str) -> int: pass
-
-    @abstractmethod
-    def connect_to_vpn(self, config_path: str): pass
-
-    @abstractmethod
-    def disconnect_from_vpn(self, config_path: str): pass
 
     @abstractmethod
     def check_speed(self) -> tuple[float, float]: pass
@@ -25,19 +19,55 @@ class INodeService(Protocol):
     def check_ping(self, host) -> tuple[float, float]: pass
 
     @abstractmethod
-    async def update_node_metrics(
+    async def delete_client_config(self, node_ip: str, client_address: str): pass
+
+    @abstractmethod
+    async def update_node_uptime(
             self,
             nodes_ip: list[str],
             ok_responses: list[int],
             failed_responses: list[int],
-            package_losses: list[int],
-            pings: list[int],
-            download_speeds: list[int],
-            upload_speeds: list[int]
-    ): pass
+    ) -> None: pass
+
+    # WG
+    @abstractmethod
+    def download_wg_config(self, node_ip: str): pass
 
     @abstractmethod
-    async def delete_client_config(self, node_ip: str, client_address: str): pass
+    def connect_to_wg(self): pass
+
+    @abstractmethod
+    def disconnect_from_wg(self): pass
+
+    @abstractmethod
+    async def update_node_wg_metrics(
+            self,
+            nodes_ip: list[str],
+            wg_package_losses: list[int],
+            wg_pings: list[int],
+            wg_download_speeds: list[int],
+            wg_upload_speeds: list[int]
+    ): pass
+
+    # ovpn
+    @abstractmethod
+    def download_ovpn_config(self, node_ip: str): pass
+
+    @abstractmethod
+    def connect_to_ovpn(self): pass
+
+    @abstractmethod
+    def disconnect_from_ovpn(self): pass
+
+    @abstractmethod
+    async def update_node_ovpn_metrics(
+            self,
+            nodes_ip: list[str],
+            ovpn_package_losses: list[int],
+            ovpn_pings: list[int],
+            ovpn_download_speeds: list[int],
+            ovpn_upload_speeds: list[int]
+    ): pass
 
 
 class IClientService(Protocol):
@@ -53,22 +83,38 @@ class IContractVPN(Protocol):
     async def nodes_ip(self) -> list[str]: pass
 
     @abstractmethod
-    async def update_node_metrics(
-            self,
-            nodes_ip: list[str],
-            ok_responses: list[int],
-            failed_responses: list[int],
-            package_losses: list[int],
-            pings: list[int],
-            download_speeds: list[int],
-            upload_speeds: list[int]
-    ): pass
-
-    @abstractmethod
     async def all_client_address(self) -> list[str]: pass
 
     @abstractmethod
     async def get_client(self, client_address: str) -> model.Client: pass
+
+    @abstractmethod
+    async def update_node_uptime(
+            self,
+            nodes_ip: list[str],
+            ok_responses: list[int],
+            failed_responses: list[int],
+    ) -> None: pass
+
+    @abstractmethod
+    async def update_node_wg_metrics(
+            self,
+            nodes_ip: list[str],
+            wg_package_losses: list[int],
+            wg_pings: list[int],
+            wg_download_speeds: list[int],
+            wg_upload_speeds: list[int]
+    ): pass
+
+    @abstractmethod
+    async def update_node_ovpn_metrics(
+            self,
+            nodes_ip: list[str],
+            ovpn_package_losses: list[int],
+            ovpn_pings: list[int],
+            ovpn_download_speeds: list[int],
+            ovpn_upload_speeds: list[int]
+    ): pass
 
 
 class DBInterface(Protocol):

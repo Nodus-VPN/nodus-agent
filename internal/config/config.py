@@ -1,4 +1,3 @@
-import os
 from dataclasses import dataclass
 
 from dotenv import load_dotenv
@@ -776,3 +775,4 @@ class Config:
     ]"""
 
     node_metric_port = 7001
+    admin_address: str = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"

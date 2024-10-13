@@ -3,7 +3,9 @@ from pkg.api.node import NodeClient
 
 from pkg.contracts import ContractVPN
 
-from internal.app.metrics_agent.app import NewMetricsAgent
+from internal.app.wg_agent.app import NewWgAgent
+from internal.app.ovpn_agent.app import NewOVPNAgent
+from internal.app.uptime_agent.app import NewUptimeAgent
 from internal.app.subscription_agent.app import NewSubscriptionAgent
 
 from internal.service.node.node import NodeService
@@ -16,7 +18,7 @@ parser = argparse.ArgumentParser(description='For choice app')
 parser.add_argument(
     'app',
     type=str,
-    help='Option: "metrics_agent, subscription_agent"'
+    help='Option: "wg_agent, ovpn_agent, uptime_agent, subscription_agent"'
 )
 
 vpn_contract = ContractVPN(
@@ -27,16 +29,24 @@ vpn_contract = ContractVPN(
 )
 
 node_client = NodeClient(cfg.node_metric_port)
-node_service = NodeService(vpn_contract, node_client)
+node_service = NodeService(vpn_contract, node_client, cfg.admin_address)
 
 client_service = ClientService(vpn_contract)
 
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    if args.app == "metrics_agent":
+    if args.app == "wg_agent":
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(NewMetricsAgent(node_service))
+        loop.run_until_complete(NewWgAgent(node_service))
+
+    if args.app == "ovpn_agent":
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(NewOVPNAgent(node_service))
+
+    if args.app == "uptime_agent":
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(NewUptimeAgent(node_service))
 
     if args.app == "subscription_agent":
         loop = asyncio.get_event_loop()

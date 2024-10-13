@@ -35,27 +35,6 @@ class ContractVPN(model.IContractVPN):
         nodes_ip = await self.contract.functions.getAllNode().call()
         return nodes_ip
 
-    async def update_node_metrics(
-            self,
-            nodes_ip: list[str],
-            ok_responses: list[int],
-            failed_responses: list[int],
-            package_losses: list[int],
-            pings: list[int],
-            download_speeds: list[int],
-            upload_speeds: list[int]
-    ):
-        function = self.contract.functions.updateNodeMetrics(
-            nodes_ip,
-            ok_responses,
-            failed_responses,
-            download_speeds,
-            upload_speeds,
-            package_losses,
-            pings,
-        )
-        tx_receipt = await self._send_transaction(function)
-
     async def all_client_address(self) -> list[str]:
         all_client_address = await self.contract.functions.getAllClientAddress().call()
         return all_client_address
@@ -64,3 +43,50 @@ class ContractVPN(model.IContractVPN):
         client = await self.contract.functions.getClient(client_address).call()
         client = model.Client(*client)
         return client
+
+    async def update_node_uptime(
+            self,
+            nodes_ip: list[str],
+            ok_responses: list[str],
+            failed_responses: list[str],
+    ) -> None:
+        function = self.contract.functions.updateNodeUptime(
+            nodes_ip,
+            ok_responses,
+            failed_responses
+        )
+        tx_receipt = await self._send_transaction(function)
+
+    async def update_node_wg_metrics(
+            self,
+            nodes_ip: list[str],
+            wg_package_losses: list[int],
+            wg_pings: list[int],
+            wg_download_speeds: list[int],
+            wg_upload_speeds: list[int]
+    ):
+        function = self.contract.functions.updateNodeWGMetrics(
+            nodes_ip,
+            wg_download_speeds,
+            wg_upload_speeds,
+            wg_package_losses,
+            wg_pings,
+        )
+        tx_receipt = await self._send_transaction(function)
+
+    async def update_node_ovpn_metrics(
+            self,
+            nodes_ip: list[str],
+            ovpn_package_losses: list[int],
+            ovpn_pings: list[int],
+            ovpn_download_speeds: list[int],
+            ovpn_upload_speeds: list[int]
+    ):
+        function = self.contract.functions.updateNodeWGMetrics(
+            nodes_ip,
+            ovpn_download_speeds,
+            ovpn_upload_speeds,
+            ovpn_package_losses,
+            ovpn_pings,
+        )
+        tx_receipt = await self._send_transaction(function)
