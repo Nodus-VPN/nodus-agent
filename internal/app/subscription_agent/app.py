@@ -31,6 +31,7 @@ async def NewSubscriptionAgent(
                     await node_service.delete_client_config(node_ip, client_address)
 
                 # Помечаем, что конфиги со всех серверов удалены
+                print("Истекла подписка ", client_address)
                 expired_subscriptions[client_address] = client.subscription_expiration_date
-
+        print("Проверили подписки")
         time.sleep(5)

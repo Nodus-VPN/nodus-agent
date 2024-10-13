@@ -23,4 +23,4 @@ class NodeClient(model.INodeClient):
         return await self.__async_get("/health", node_ip)
 
     async def delete_client_config(self, node_ip: str, client_address: str):
-        return await self.__async_delete(f"/wg/client/config/{client_address}", node_ip)
+        return await self.__async_delete(f"/config/{client_address}", node_ip)
