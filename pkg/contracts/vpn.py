@@ -65,7 +65,7 @@ class ContractVPN(model.IContractVPN):
             wg_download_speeds: list[int],
             wg_upload_speeds: list[int]
     ):
-        function = self.contract.functions.updateNodeWGMetrics(
+        function = self.contract.functions.updateNodeWgMetrics(
             nodes_ip,
             wg_download_speeds,
             wg_upload_speeds,
@@ -82,7 +82,7 @@ class ContractVPN(model.IContractVPN):
             ovpn_download_speeds: list[int],
             ovpn_upload_speeds: list[int]
     ):
-        function = self.contract.functions.updateNodeWGMetrics(
+        function = self.contract.functions.updateNodeOvpnMetrics(
             nodes_ip,
             ovpn_download_speeds,
             ovpn_upload_speeds,
