@@ -36,4 +36,4 @@ async def NewWgAgent(
             wg_download_speeds,
             wg_upload_speeds,
         )
-        time.sleep(20)
+        time.sleep(60)
