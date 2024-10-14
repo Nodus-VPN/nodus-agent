@@ -17,7 +17,7 @@ class Config:
     owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
 
-    vpn_contract_address: str = "0xdd5A5e6A52aB63C12909BFda7560B0210CF1233f"
+    vpn_contract_address: str = "0xcF407038199d0C287431f9D7762993d44B48a495"
     vpn_contract_abi: str = """[
         {
             "inputs": [],
