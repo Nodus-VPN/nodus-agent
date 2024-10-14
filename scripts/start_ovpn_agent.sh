@@ -17,3 +17,4 @@ fi
 
 pip install -r requirements.txt
 pm2 start main.py --interpreter python3 --name "ovpn_agent" -f -- ovpn_agent
+pm2 log
