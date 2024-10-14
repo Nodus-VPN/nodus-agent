@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 if [ -s "$NVM_DIR/nvm.sh" ]; then
     echo "NVM установлен."
 else
@@ -15,8 +16,4 @@ fi
 
 
 pip install -r requirements.txt
-
-pm2 start main.py --interpreter python3 --name "wg_agent" -f -- wg_agent
-pm2 start main.py --interpreter python3 --name "ovpn_agent" -f -- ovpn_agent
 pm2 start main.py --interpreter python3 --name "uptime_agent" -f -- uptime_agent
-pm2 start main.py --interpreter python3 --name "subscription_agent" -f -- subscription_agent

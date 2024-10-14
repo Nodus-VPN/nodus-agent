@@ -112,10 +112,10 @@ class NodeService(model.INodeService):
             file.write(response.content)
 
     def connect_to_ovpn(self):
-        subprocess.run(['sudo', 'openvpn', '--config', self.ovpn_config_path], check=True)
+        subprocess.run(['sudo', 'openvpn', '--config', self.ovpn_config_path, "--daemon"], check=True)
 
     def disconnect_from_ovpn(self):
-        subprocess.run(["sudo", "wg-quick", "down", "wg3"], check=True)
+        subprocess.run(["sudo", "killall", "openvpn"], check=True)
 
     async def update_node_ovpn_metrics(
             self,
@@ -125,7 +125,7 @@ class NodeService(model.INodeService):
             wg_download_speeds: list[int],
             wg_upload_speeds: list[int]
     ):
-        await self.vpn_contract.update_node_wg_metrics(
+        await self.vpn_contract.update_node_ovpn_metrics(
             nodes_ip,
             wg_package_losses,
             wg_pings,
