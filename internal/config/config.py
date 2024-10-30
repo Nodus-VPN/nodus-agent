@@ -16,15 +16,8 @@ class Config:
     owner_address = "0xBb35CB00d1e54A98b6a44E4F42faBedD43660293"
     owner_private_key = "2dca2cd0db77495ca32f08e601457bb75fc0b8d92d6f4e654792334554d80f85"
 
-    vpn_contract_address: str = "0xFB611aB8e08CB0B892b5aC1a6297DBa17682f759"
+    vpn_contract_address: str = "0x0DAbB195Fc92fAb4f413Bd1Fb885d854a5802B88"
     vpn_contract_abi: str = """[
-            {
-                "inputs": [],
-                "name": "calculateReward",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
             {
                 "inputs": [
                     {
@@ -78,13 +71,6 @@ class Config:
                 "type": "event"
             },
             {
-                "inputs": [],
-                "name": "renounceOwnership",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
                 "anonymous": false,
                 "inputs": [
                     {
@@ -110,136 +96,16 @@ class Config:
                 "type": "event"
             },
             {
-                "inputs": [
+                "inputs": [],
+                "name": "NDS",
+                "outputs": [
                     {
-                        "internalType": "string",
-                        "name": "_nodeIP",
-                        "type": "string"
-                    }
-                ],
-                "name": "setNodeIP",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "uint256",
-                        "name": "_subscriptionDuration",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "_hashedKey",
-                        "type": "string"
-                    }
-                ],
-                "name": "subscribe",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "address",
-                        "name": "newOwner",
+                        "internalType": "contract IERC20",
+                        "name": "",
                         "type": "address"
                     }
                 ],
-                "name": "transferOwnership",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "string[]",
-                        "name": "_nodeIP",
-                        "type": "string[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_ovpnDownloadSpeed",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_ovpnUploadSpeed",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_ovpnPackageLoss",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_ovpnPing",
-                        "type": "uint256[]"
-                    }
-                ],
-                "name": "updateNodeOvpnMetrics",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "string[]",
-                        "name": "_nodeIP",
-                        "type": "string[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_okResponse",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_failedResponse",
-                        "type": "uint256[]"
-                    }
-                ],
-                "name": "updateNodeUptime",
-                "outputs": [],
-                "stateMutability": "nonpayable",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "string[]",
-                        "name": "_nodeIP",
-                        "type": "string[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_wgDownloadSpeed",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_wgUploadSpeed",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_wgPackageLoss",
-                        "type": "uint256[]"
-                    },
-                    {
-                        "internalType": "uint256[]",
-                        "name": "_wgPing",
-                        "type": "uint256[]"
-                    }
-                ],
-                "name": "updateNodeWgMetrics",
-                "outputs": [],
-                "stateMutability": "nonpayable",
+                "stateMutability": "view",
                 "type": "function"
             },
             {
@@ -278,6 +144,13 @@ class Config:
                     }
                 ],
                 "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "name": "calculateReward",
+                "outputs": [],
+                "stateMutability": "nonpayable",
                 "type": "function"
             },
             {
@@ -491,19 +364,6 @@ class Config:
                 "type": "function"
             },
             {
-                "inputs": [],
-                "name": "NDS",
-                "outputs": [
-                    {
-                        "internalType": "contract IERC20",
-                        "name": "",
-                        "type": "address"
-                    }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
                 "inputs": [
                     {
                         "internalType": "string",
@@ -606,6 +466,44 @@ class Config:
             },
             {
                 "inputs": [],
+                "name": "renounceOwnership",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string",
+                        "name": "_nodeIP",
+                        "type": "string"
+                    }
+                ],
+                "name": "setNodeIP",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "uint256",
+                        "name": "_subscriptionDuration",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "_hashedKey",
+                        "type": "string"
+                    }
+                ],
+                "name": "subscribe",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [],
                 "name": "subscriptionMounthPrice",
                 "outputs": [
                     {
@@ -616,10 +514,112 @@ class Config:
                 ],
                 "stateMutability": "view",
                 "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "newOwner",
+                        "type": "address"
+                    }
+                ],
+                "name": "transferOwnership",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string[]",
+                        "name": "_nodeIP",
+                        "type": "string[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_ovpnDownloadSpeed",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_ovpnUploadSpeed",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_ovpnPackageLoss",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_ovpnPing",
+                        "type": "uint256[]"
+                    }
+                ],
+                "name": "updateNodeOvpnMetrics",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string[]",
+                        "name": "_nodeIP",
+                        "type": "string[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_okResponse",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_failedResponse",
+                        "type": "uint256[]"
+                    }
+                ],
+                "name": "updateNodeUptime",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string[]",
+                        "name": "_nodeIP",
+                        "type": "string[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_wgDownloadSpeed",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_wgUploadSpeed",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_wgPackageLoss",
+                        "type": "uint256[]"
+                    },
+                    {
+                        "internalType": "uint256[]",
+                        "name": "_wgPing",
+                        "type": "uint256[]"
+                    }
+                ],
+                "name": "updateNodeWgMetrics",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
             }
         ]"""
 
-    nds_contract_address: str = "0xF41Df4bf6e4b78c79A91E833B100f864Ea1B3B95"
+    nds_contract_address: str = "0xF0314d84BBca78524d4F555441911211E4420e2e"
     nds_contract_abi = """[
         {
             "inputs": [

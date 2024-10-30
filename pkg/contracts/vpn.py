@@ -47,8 +47,8 @@ class ContractVPN(model.IContractVPN):
     async def update_node_uptime(
             self,
             nodes_ip: list[str],
-            ok_responses: list[str],
-            failed_responses: list[str],
+            ok_responses: list[int],
+            failed_responses: list[int],
     ) -> None:
         function = self.contract.functions.updateNodeUptime(
             nodes_ip,
