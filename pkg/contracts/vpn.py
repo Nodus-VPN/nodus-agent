@@ -73,20 +73,3 @@ class ContractVPN(model.IContractVPN):
             wg_pings,
         )
         tx_receipt = await self._send_transaction(function)
-
-    async def update_node_ovpn_metrics(
-            self,
-            nodes_ip: list[str],
-            ovpn_package_losses: list[int],
-            ovpn_pings: list[int],
-            ovpn_download_speeds: list[int],
-            ovpn_upload_speeds: list[int]
-    ):
-        function = self.contract.functions.updateNodeOvpnMetrics(
-            nodes_ip,
-            ovpn_download_speeds,
-            ovpn_upload_speeds,
-            ovpn_package_losses,
-            ovpn_pings,
-        )
-        tx_receipt = await self._send_transaction(function)

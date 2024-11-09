@@ -49,26 +49,6 @@ class INodeService(Protocol):
             wg_upload_speeds: list[int]
     ): pass
 
-    # ovpn
-    @abstractmethod
-    def download_ovpn_config(self, node_ip: str): pass
-
-    @abstractmethod
-    def connect_to_ovpn(self): pass
-
-    @abstractmethod
-    def disconnect_from_ovpn(self): pass
-
-    @abstractmethod
-    async def update_node_ovpn_metrics(
-            self,
-            nodes_ip: list[str],
-            ovpn_package_losses: list[int],
-            ovpn_pings: list[int],
-            ovpn_download_speeds: list[int],
-            ovpn_upload_speeds: list[int]
-    ): pass
-
 
 class IClientService(Protocol):
     @abstractmethod
@@ -104,16 +84,6 @@ class IContractVPN(Protocol):
             wg_pings: list[int],
             wg_download_speeds: list[int],
             wg_upload_speeds: list[int]
-    ): pass
-
-    @abstractmethod
-    async def update_node_ovpn_metrics(
-            self,
-            nodes_ip: list[str],
-            ovpn_package_losses: list[int],
-            ovpn_pings: list[int],
-            ovpn_download_speeds: list[int],
-            ovpn_upload_speeds: list[int]
     ): pass
 
 
