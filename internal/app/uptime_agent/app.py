@@ -30,4 +30,4 @@ async def NewUptimeAgent(
             failed_responses,
         )
         logger.info('Node uptime updated')
-        time.sleep(20)
+        time.sleep(60)
