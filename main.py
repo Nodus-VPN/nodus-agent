@@ -1,4 +1,6 @@
 import asyncio
+import logging
+
 from pkg.api.node import NodeClient
 
 from pkg.contracts import ContractVPN
@@ -35,14 +37,17 @@ client_service = ClientService(vpn_contract)
 if __name__ == '__main__':
     args = parser.parse_args()
 
+    logger = logging.getLogger(__name__)
+
+
     if args.app == "wg_agent":
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(NewWgAgent(node_service))
+        loop.run_until_complete(NewWgAgent(node_service, logger))
 
     if args.app == "uptime_agent":
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(NewUptimeAgent(node_service))
+        loop.run_until_complete(NewUptimeAgent(node_service, logger))
 
     if args.app == "subscription_agent":
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(NewSubscriptionAgent(client_service, node_service))
+        loop.run_until_complete(NewSubscriptionAgent(client_service, node_service, logger))

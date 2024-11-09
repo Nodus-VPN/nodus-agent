@@ -1,11 +1,12 @@
 import time
-import logging as logger
+import logging
 
 from internal import model
 
 
 async def NewWgAgent(
-        node_service: model.INodeService
+        node_service: model.INodeService,
+        logger: logging.Logger,
 ):
     logger.info("WG agent started")
     while True:
@@ -52,4 +53,3 @@ async def NewWgAgent(
             logger.error("Restart wg agent")
             logger.error(e)
             continue
-

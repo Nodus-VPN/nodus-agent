@@ -1,11 +1,12 @@
 import time
-import logging as logger
+import logging
 
 from internal import model
 
 
 async def NewUptimeAgent(
-        node_service: model.INodeService
+        node_service: model.INodeService,
+        logger: logging.Logger,
 ):
     logger.info('New uptime agent started')
     while True:

@@ -1,5 +1,5 @@
 import time
-import logging as logger
+import logging
 
 from internal import model
 
@@ -9,6 +9,7 @@ expired_subscriptions = {}
 async def NewSubscriptionAgent(
         client_service: model.IClientService,
         node_service: model.INodeService,
+        logger: logging.Logger,
 ):
     logger.info("New subscription agent")
     while True:
