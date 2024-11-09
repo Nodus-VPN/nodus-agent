@@ -1,4 +1,5 @@
 import time
+import logging as logger
 
 from internal import model
 
@@ -6,36 +7,49 @@ from internal import model
 async def NewWgAgent(
         node_service: model.INodeService
 ):
+    logger.info("WG agent started")
     while True:
-        wg_package_losses = []
-        wg_pings = []
-        wg_download_speeds = []
-        wg_upload_speeds = []
+        try:
+            wg_package_losses = []
+            wg_pings = []
+            wg_download_speeds = []
+            wg_upload_speeds = []
 
-        nodes_ip = await node_service.nodes_ip()
-        for node_ip in nodes_ip:
-            try:
-                node_service.download_wg_config(node_ip)
+            nodes_ip = await node_service.nodes_ip()
+            for node_ip in nodes_ip:
+                try:
+                    logger.info(f"Start check metrics {node_ip}")
+                    node_service.download_wg_config(node_ip)
 
-                node_service.connect_to_wg()
+                    node_service.connect_to_wg()
 
-                wg_package_loss, wg_avg_ping = node_service.check_ping(node_ip)
-                wg_package_losses.append(int(wg_package_loss * 100))
-                wg_pings.append(int(wg_avg_ping * 100))
+                    wg_package_loss, wg_avg_ping = node_service.check_ping(node_ip)
+                    wg_package_losses.append(int(wg_package_loss * 100))
+                    wg_pings.append(int(wg_avg_ping * 100))
 
-                wg_download_speed, wg_upload_speed = node_service.check_speed()
-                wg_download_speeds.append(int(wg_download_speed * 100))
-                wg_upload_speeds.append(int(wg_upload_speed * 100))
+                    wg_download_speed, wg_upload_speed = node_service.check_speed()
+                    wg_download_speeds.append(int(wg_download_speed * 100))
+                    wg_upload_speeds.append(int(wg_upload_speed * 100))
 
-                node_service.disconnect_from_wg()
-            except:
-                pass
+                    node_service.disconnect_from_wg()
+                    logger.info(f"End check metrics {node_ip}")
+                except Exception as e:
+                    node_service.disconnect_from_wg()
+                    logger.error(e)
 
-        await node_service.update_node_wg_metrics(
-            nodes_ip,
-            wg_package_losses,
-            wg_pings,
-            wg_download_speeds,
-            wg_upload_speeds,
-        )
-        time.sleep(60)
+            await node_service.update_node_wg_metrics(
+                nodes_ip,
+                wg_package_losses,
+                wg_pings,
+                wg_download_speeds,
+                wg_upload_speeds,
+            )
+            logger.info("Node metrics updated")
+
+            time.sleep(60)
+        except Exception as e:
+            node_service.disconnect_from_wg()
+            logger.error("Restart wg agent")
+            logger.error(e)
+            continue
+
