@@ -37,8 +37,16 @@ client_service = ClientService(vpn_contract)
 if __name__ == '__main__':
     args = parser.parse_args()
 
-    logger = logging.getLogger(__name__)
+    import logging
+    import sys
 
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
 
     if args.app == "wg_agent":
         loop = asyncio.get_event_loop()
