@@ -27,26 +27,32 @@ class INodeService(Protocol):
             nodes_ip: list[str],
             ok_responses: list[int],
             failed_responses: list[int],
-    ) -> None: pass
+    ): pass
 
     # WG
     @abstractmethod
-    def download_wg_config(self, node_ip: str): pass
+    def download_vpn_config(self, node_ip: str): pass
 
     @abstractmethod
-    def connect_to_wg(self): pass
+    def connect_to_vpn(self): pass
 
     @abstractmethod
-    def disconnect_from_wg(self): pass
+    def disconnect_vpn(self): pass
 
     @abstractmethod
-    async def update_node_wg_metrics(
+    async def delete_node(self, nodes_ip: list[str]) -> None: pass
+
+    @abstractmethod
+    async def update_node_status(self, nodes_ip: list[str], status: str): pass
+
+    @abstractmethod
+    async def update_node_metrics(
             self,
             nodes_ip: list[str],
-            wg_package_losses: list[int],
-            wg_pings: list[int],
-            wg_download_speeds: list[int],
-            wg_upload_speeds: list[int]
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
     ): pass
 
 
@@ -77,14 +83,24 @@ class IContractVPN(Protocol):
     ) -> None: pass
 
     @abstractmethod
-    async def update_node_wg_metrics(
+    async def update_node_metrics(
             self,
             nodes_ip: list[str],
-            wg_package_losses: list[int],
-            wg_pings: list[int],
-            wg_download_speeds: list[int],
-            wg_upload_speeds: list[int]
+            package_losses: list[int],
+            pings: list[int],
+            download_speeds: list[int],
+            upload_speeds: list[int]
     ): pass
+
+    @abstractmethod
+    async def update_node_status(
+            self,
+            nodes_ip: list[str],
+            status: str,
+    ) -> None: pass
+
+    @abstractmethod
+    async def delete_node(self, nodes_ip: list[str]) -> None: pass
 
 
 class DBInterface(Protocol):

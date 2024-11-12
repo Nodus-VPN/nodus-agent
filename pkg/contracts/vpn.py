@@ -32,7 +32,7 @@ class ContractVPN(model.IContractVPN):
         return tx_receipt
 
     async def nodes_ip(self) -> list[str]:
-        nodes_ip = await self.contract.functions.getAllNode().call()
+        nodes_ip = await self.contract.functions.getAllNodeIp().call()
         return nodes_ip
 
     async def all_client_address(self) -> list[str]:
@@ -57,7 +57,18 @@ class ContractVPN(model.IContractVPN):
         )
         tx_receipt = await self._send_transaction(function)
 
-    async def update_node_wg_metrics(
+    async def update_node_status(
+            self,
+            nodes_ip: list[str],
+            status: str,
+    ) -> None:
+        function = self.contract.functions.updateNodeStatus(
+            nodes_ip,
+            status
+        )
+        tx_receipt = await self._send_transaction(function)
+
+    async def update_node_metrics(
             self,
             nodes_ip: list[str],
             wg_package_losses: list[int],
@@ -65,11 +76,15 @@ class ContractVPN(model.IContractVPN):
             wg_download_speeds: list[int],
             wg_upload_speeds: list[int]
     ):
-        function = self.contract.functions.updateNodeWgMetrics(
+        function = self.contract.functions.updateNodeMetrics(
             nodes_ip,
             wg_download_speeds,
             wg_upload_speeds,
             wg_package_losses,
             wg_pings,
         )
+        tx_receipt = await self._send_transaction(function)
+
+    async def delete_node(self, nodes_ip: list[str]) -> None:
+        function = self.contract.functions.deleteNode(nodes_ip)
         tx_receipt = await self._send_transaction(function)
