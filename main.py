@@ -5,7 +5,7 @@ from pkg.api.node import NodeClient
 
 from pkg.contracts import ContractVPN
 
-from internal.app.wg_agent.app import NewWgAgent
+from internal.app.vpn_agent.app import NewVPNAgent
 from internal.app.uptime_agent.app import NewUptimeAgent
 from internal.app.subscription_agent.app import NewSubscriptionAgent
 
@@ -50,7 +50,7 @@ if __name__ == '__main__':
 
     if args.app == "wg_agent":
         loop = asyncio.get_event_loop()
-        loop.run_until_complete(NewWgAgent(node_service, logger))
+        loop.run_until_complete(NewVPNAgent(node_service, logger))
 
     if args.app == "uptime_agent":
         loop = asyncio.get_event_loop()
