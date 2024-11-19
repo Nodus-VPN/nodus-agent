@@ -10,7 +10,7 @@ class NodeClient(model.INodeClient):
         self.node_metric_port = node_metric_port
 
     async def __async_get(self, path: str, node_ip: str):
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(4)) as session:
             async with session.get(f"http://{node_ip}:{self.node_metric_port}{path}") as resp:
                 return await resp.json()
 
