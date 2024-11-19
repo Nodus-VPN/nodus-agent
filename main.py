@@ -19,7 +19,7 @@ parser = argparse.ArgumentParser(description='For choice app')
 parser.add_argument(
     'app',
     type=str,
-    help='Option: "wg_agent, uptime_agent, subscription_agent"'
+    help='Option: "vpn_agent, uptime_agent, subscription_agent"'
 )
 
 vpn_contract = ContractVPN(
