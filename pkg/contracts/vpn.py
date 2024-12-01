@@ -11,7 +11,7 @@ class ContractVPN(model.IContractVPN):
             owner_address: str,
             owner_private_key: str,
     ):
-        self.w3 = AsyncWeb3(AsyncWeb3.AsyncHTTPProvider('https://rpc-amoy.polygon.technology'))
+        self.w3 = AsyncWeb3(AsyncWeb3.AsyncHTTPProvider('https://rpc.cardona.zkevm-rpc.com'))
         self.checksum_address = AsyncWeb3.to_checksum_address(contract_address)
         self.contract = self.w3.eth.contract(self.checksum_address, abi=contract_abi)
         self.owner_address = owner_address
